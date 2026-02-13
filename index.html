@@ -132,33 +132,51 @@ footer{
 </footer>
 
 <script>
+const sheetID = "1u8Rz5AFaHeT6ojIFS2xuZtXH3_Sx07DIczh9z67LFN0";
+const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:csv`;
+
+let products = [];
+
+fetch(sheetURL)
+  .then(res => res.text())
+  .then(csv => {
+    const rows = csv.split("\n").slice(1);
+    products = rows.map(row => {
+      const cols = row.split(",");
+      return {
+        name: cols[0],
+        price: cols[1],
+        store: cols[2],
+        link: cols[3],
+        keyword: cols[4]
+      };
+    });
+  });
+
 function searchProduct(){
-    let product = document.getElementById("product").value;
-    if(product === "") return;
+    let input = document.getElementById("product").value.toLowerCase();
+    let results = document.getElementById("results");
+    results.innerHTML = "";
 
-    let amazon = "https://www.amazon.in/s?k=" + product;
-    let meesho = "https://www.meesho.com/search?q=" + product;
-    let flipkart = "https://www.flipkart.com/search?q=" + product;
+    let filtered = products.filter(p => 
+        p.keyword && p.keyword.toLowerCase().includes(input)
+    );
 
-    document.getElementById("results").innerHTML = `
-        <div class="card">
-            <h3>Amazon</h3>
-            <div class="price">Check Price</div>
-            <a href="${amazon}" target="_blank">View on Amazon</a>
-        </div>
+    if(filtered.length === 0){
+        results.innerHTML = "<p>No products found.</p>";
+        return;
+    }
 
-        <div class="card">
-            <h3>Flipkart</h3>
-            <div class="price">Check Price</div>
-            <a href="${flipkart}" target="_blank">View on Flipkart</a>
-        </div>
-
-        <div class="card">
-            <h3>Meesho</h3>
-            <div class="price">Check Price</div>
-            <a href="${meesho}" target="_blank">View on Meesho</a>
-        </div>
-    `;
+    filtered.forEach(p => {
+        results.innerHTML += `
+            <div class="card">
+                <h3>${p.name}</h3>
+                <div class="price">${p.price}</div>
+                <p>${p.store}</p>
+                <a href="${p.link}" target="_blank">Buy Now</a>
+            </div>
+        `;
+    });
 }
 </script>
 
