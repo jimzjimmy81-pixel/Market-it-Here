@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MarketIt - Smart Shopping Search</title>
+<title>MarketItHere - Smart Shopping Search</title>
 
 <style>
 body{
@@ -21,7 +21,6 @@ header{
 .logo{
     font-size:34px;
     font-weight:bold;
-    letter-spacing:1px;
 }
 
 .logo span{
@@ -35,20 +34,14 @@ header{
 
 .search-container{
     margin-top:30px;
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:10px;
 }
 
 input{
     padding:14px;
     width:60%;
-    max-width:420px;
+    max-width:400px;
     border:none;
     border-radius:10px;
-    font-size:16px;
-    outline:none;
 }
 
 button{
@@ -59,30 +52,36 @@ button{
     color:black;
     font-weight:bold;
     cursor:pointer;
-    transition:0.3s;
 }
 
-button:hover{
-    background:#009acd;
-}
-
-.section{
-    padding:50px 20px;
-    text-align:center;
+.results{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    padding:40px 20px;
+    gap:20px;
 }
 
 .card{
     background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
-    padding:25px;
-    margin:20px auto;
+    padding:20px;
     border-radius:15px;
-    max-width:500px;
+    width:250px;
+    text-align:center;
 }
 
-.store-links a{
+.card h3{
+    margin-bottom:10px;
+}
+
+.price{
+    font-size:18px;
+    color:#00bfff;
+    margin-bottom:15px;
+}
+
+.card a{
     display:inline-block;
-    margin:8px;
     padding:10px 15px;
     background:#00bfff;
     color:black;
@@ -95,7 +94,6 @@ footer{
     text-align:center;
     padding:20px;
     background:#0a0a0f;
-    font-size:14px;
     color:#777;
 }
 </style>
@@ -104,8 +102,8 @@ footer{
 <body>
 
 <header>
-    <div class="logo">Market<span>It</span></div>
-    <div class="tagline">Compare prices across top online stores instantly</div>
+    <div class="logo">Market<span>ItHere</span></div>
+    <div class="tagline">Compare prices across stores instantly</div>
 
     <div class="search-container">
         <input type="text" id="product" placeholder="Search for products...">
@@ -113,15 +111,10 @@ footer{
     </div>
 </header>
 
-<section class="section">
-    <div class="card">
-        <h2>Available Stores</h2>
-        <div class="store-links" id="results"></div>
-    </div>
-</section>
+<div class="results" id="results"></div>
 
 <footer>
-© 2026 MarketIt. Affiliate links may earn us commission.
+© 2026 MarketItHere. Affiliate links may earn us commission.
 </footer>
 
 <script>
@@ -133,10 +126,25 @@ function searchProduct(){
     let meesho = "https://www.meesho.com/search?q=" + product;
     let flipkart = "https://www.flipkart.com/search?q=" + product;
 
-    document.getElementById("results").innerHTML =
-        `<a href="${amazon}" target="_blank">Amazon</a>
-         <a href="${meesho}" target="_blank">Meesho</a>
-         <a href="${flipkart}" target="_blank">Flipkart</a>`;
+    document.getElementById("results").innerHTML = `
+        <div class="card">
+            <h3>Amazon</h3>
+            <div class="price">Check Price</div>
+            <a href="${amazon}" target="_blank">View on Amazon</a>
+        </div>
+
+        <div class="card">
+            <h3>Flipkart</h3>
+            <div class="price">Check Price</div>
+            <a href="${flipkart}" target="_blank">View on Flipkart</a>
+        </div>
+
+        <div class="card">
+            <h3>Meesho</h3>
+            <div class="price">Check Price</div>
+            <a href="${meesho}" target="_blank">View on Meesho</a>
+        </div>
+    `;
 }
 </script>
 
