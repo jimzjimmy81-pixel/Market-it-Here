@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarketIt - Smart Shopping Search</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#0f0f14;
+    color:white;
+}
+
+header{
+    padding:40px 20px;
+    text-align:center;
+    background:#111827;
+}
+
+h1{
+    font-size:36px;
+    color:#00bfff;
+}
+
+.search-box{
+    margin-top:20px;
+}
+
+input{
+    padding:12px;
+    width:60%;
+    max-width:400px;
+    border:none;
+    border-radius:6px;
+}
+
+button{
+    padding:12px 18px;
+    border:none;
+    border-radius:6px;
+    background:#00bfff;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.section{
+    padding:40px 20px;
+    text-align:center;
+}
+
+.card{
+    background:#1a1a24;
+    margin:20px auto;
+    padding:20px;
+    border-radius:10px;
+    max-width:500px;
+}
+
+.store-links a{
+    display:inline-block;
+    margin:10px;
+    padding:10px 15px;
+    background:#00bfff;
+    color:black;
+    text-decoration:none;
+    border-radius:6px;
+    font-weight:bold;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    background:#111827;
+    font-size:14px;
+    color:#888;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>MarketIt</h1>
+    <p>Compare prices instantly across top online stores</p>
+
+    <div class="search-box">
+        <input type="text" id="product" placeholder="Search for products...">
+        <button onclick="searchProduct()">Search</button>
+    </div>
+</header>
+
+<section class="section">
+    <div class="card">
+        <h2>Available Stores</h2>
+        <div class="store-links" id="results"></div>
+    </div>
+</section>
+
+<footer>
+© 2026 MarketIt. We may earn commission from affiliate links.
+</footer>
+
+<script>
+function searchProduct(){
+    let product = document.getElementById("product").value;
+    if(product === "") return;
+
+    let amazon = "https://www.amazon.in/s?k=" + product;
+    let meesho = "https://www.meesho.com/search?q=" + product;
+    let flipkart = "https://www.flipkart.com/search?q=" + product;
+
+    document.getElementById("results").innerHTML =
+        `<a href="${amazon}" target="_blank">Amazon</a>
+         <a href="${meesho}" target="_blank">Meesho</a>
+         <a href="${flipkart}" target="_blank">Flipkart</a>`;
+}
+</script>
+
+</body>
+</html>
